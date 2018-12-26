@@ -1,9 +1,8 @@
 (setv package {
   "dependencies"
-  [{"jupyter==5.7.4" {}}
-   {"pytorch==1.0.0" {}}
-   {"numpy" {}}
-   {"hy==0.1.5" {}}]
+  {"numpy" {}
+   "hy==0.15.0" {}
+   "jupyter" {}}
 
    "tasks"
    {"lab" ["jupyter" "lab"]

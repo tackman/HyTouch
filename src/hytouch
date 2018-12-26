@@ -2,6 +2,7 @@
 
 (import subprocess)
 (import sys)
+(import os)
 
 (print sys.argv)
 
@@ -20,7 +21,18 @@
 (defn hytouch-run [task]
   (subprocess.run (.get (hytouch-tasks) task)))
 
+(defn install-deps []
+  (subprocess.run ["mkdir" ".hytouch"])
+  (for [repo (hytouch-dependencies)]
+    (subprocess.run ["pip" "install" (install-option) repo]
+)))
+
+(defn install-option []
+  (.format "--install-option=--prefix={0}/.hytouch" (os.getcwd)))
+
 (import package)
 (print package.package)
 
-(hytouch-run "test")
+;(hytouch-run "test")
+(install-deps)
+;(print (install-option))
