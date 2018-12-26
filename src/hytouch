@@ -12,12 +12,15 @@
   package-dict)
 
 (defn hytouch-tasks []
-  (.get (hytouch) "tasks" ))
+  (.get package.package "tasks" ))
 
 (defn hytouch-dependencies []
-  (.get (hytouch) "dependencies" ))
+  (.get package.package "dependencies" ))
 
 (defn hytouch-run [task]
-  (subprocess.run [(.get (hytouch-tasks) task)]))
+  (subprocess.run (.get (hytouch-tasks) task)))
 
 (import package)
+(print package.package)
+
+(hytouch-run "test")
