@@ -1,0 +1,23 @@
+#!/usr/bin/hy
+
+(import subprocess)
+(import sys)
+
+(print sys.argv)
+
+
+
+
+(defn hytouch [package-dict]
+  package-dict)
+
+(defn hytouch-tasks []
+  (.get (hytouch) "tasks" ))
+
+(defn hytouch-dependencies []
+  (.get (hytouch) "dependencies" ))
+
+(defn hytouch-run [task]
+  (subprocess.run [(.get (hytouch-tasks) task)]))
+
+(import package)
