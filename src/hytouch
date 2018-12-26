@@ -14,14 +14,14 @@
   (.get package.package "dependencies" ))
 
 (defn hytouch-run [task]
-  (subprocess.run (task-exec-command task) :env (gen-pythonpath "python3.7")))
+  (subprocess.run (task-exec-command task) :env (gen-exec-env "python3.7")))
 
 (defn install-deps []
   (subprocess.run ["mkdir" ".hytouch"])
   (for [repo (hytouch-dependencies)]
     (subprocess.run ["pip" "install" (install-option) repo])))
 
-(defn gen-pythonpath [pyver]
+(defn gen-exec-env [pyver]
   {"PYTHONPATH" (.format "{0}/.hytouch/lib/{1}/site-packages/" (os.getcwd) pyver)
   "PATH" (.format "{0}/.hytouch/bin:{1}" (os.getcwd) (.get os.environ "PATH"))
   })
