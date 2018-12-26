@@ -33,11 +33,12 @@
   (.format "--install-option=--prefix={0}/.hytouch" (os.getcwd)))
 
 (import package)
-;(print package.package)
 
-(hytouch-run "notebook")
-;(install-deps)
-;(print (install-option))
-;(print (task-exec-command "notebook"))
-;(print (gen-pythonpath "python3.7"))
-;(print (list ["a"] (.get (hytouch-tasks) "notebook")))
+(defn job-type [] (get sys.argv 1))
+(defn task-name [] (get sys.argv 2))
+(defn show-usage [] (print "usage:\nhytouch run [task-name] - run specified task\nhytouch install - install dependencies"))
+
+(cond [(< (len sys.argv) 2) (show-usage)]
+[(= (job-type) "run") (hytouch-run (task-name))]
+[(= (job-type) "install") (install-deps)]
+[True (show-usage)])
