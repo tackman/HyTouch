@@ -4,11 +4,6 @@
 (import sys)
 (import os)
 
-(print sys.argv)
-
-
-
-
 (defn hytouch [package-dict]
   package-dict)
 
@@ -19,20 +14,30 @@
   (.get package.package "dependencies" ))
 
 (defn hytouch-run [task]
-  (subprocess.run (.get (hytouch-tasks) task)))
+  (subprocess.run (task-exec-command task) :env (gen-pythonpath "python3.7")))
 
 (defn install-deps []
   (subprocess.run ["mkdir" ".hytouch"])
   (for [repo (hytouch-dependencies)]
-    (subprocess.run ["pip" "install" (install-option) repo]
-)))
+    (subprocess.run ["pip" "install" (install-option) repo])))
+
+(defn gen-pythonpath [pyver]
+  {"PYTHONPATH" (.format "{0}/.hytouch/lib/{1}/site-packages/" (os.getcwd) pyver)
+  "PATH" (.format "{0}/.hytouch/bin:{1}" (os.getcwd) (.get os.environ "PATH"))
+  })
+
+(defn task-exec-command [task]
+  (.get (hytouch-tasks) task))
 
 (defn install-option []
   (.format "--install-option=--prefix={0}/.hytouch" (os.getcwd)))
 
 (import package)
-(print package.package)
+;(print package.package)
 
-;(hytouch-run "test")
-(install-deps)
+(hytouch-run "notebook")
+;(install-deps)
 ;(print (install-option))
+;(print (task-exec-command "notebook"))
+;(print (gen-pythonpath "python3.7"))
+;(print (list ["a"] (.get (hytouch-tasks) "notebook")))
