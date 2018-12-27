@@ -19,7 +19,7 @@
 (defn install-deps []
   (subprocess.run ["mkdir" ".hytouch"])
   (for [repo (hytouch-dependencies)]
-    (subprocess.run ["pip" "install" (install-option) repo])))
+    (subprocess.run ["pip" "install" (install-option) repo] :env (gen-exec-env "python3.7"))))
 
 (defn gen-exec-env [pyver]
   {"PYTHONPATH" (.format "{0}/.hytouch/lib/{1}/site-packages/" (os.getcwd) pyver)
