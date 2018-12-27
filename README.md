@@ -56,3 +56,7 @@ hytouch run test
 ```
 
 ls command will be executed.
+
+## LICENSE
+
+MIT
