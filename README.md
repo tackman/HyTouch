@@ -2,6 +2,16 @@
 
 HyTouch is a local package managing frontend for pip.
 
+## Install
+
+Using pip:
+
+```bash
+pip install hytouch
+```
+
+or just run src/hytouch if you have satisfied requirements.
+
 ## Requirement
 
 - Python 3.7
