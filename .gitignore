@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# emacs
+*~
+
+# hytouch installed modules
+*.hytouch
